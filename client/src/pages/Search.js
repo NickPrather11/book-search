@@ -3,7 +3,7 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, FormBtn } from "../components/Form";
 
 class Search extends Component {
   state = {
@@ -23,16 +23,11 @@ class Search extends Component {
 
   handlFormSubmit = event => {
     event.preventDefault();
+
     API.searchBook(this.state.title, this.state.author).then(data => {
       console.log(data.data.items);
       this.setState({ results: data.data.items });
     });
-  };
-
-  loadBooks = () => {
-    API.getBooks()
-      .then(res => this.setState({ books: res.data }))
-      .catch(err => console.log(err));
   };
 
   handleSaveBook = book => {
@@ -55,13 +50,25 @@ class Search extends Component {
         <form>
           <Input name="title" placeholder="Title (required)" onChange={this.handleInputChange} />
           <Input name="author" placeholder="Author (required)" onChange={this.handleInputChange} />
-          <FormBtn handleFormSubmit={this.handlFormSubmit}>Submit Book</FormBtn>
+          <FormBtn
+            disabled={this.state.title === "" && this.state.author === ""}
+            handleFormSubmit={this.handlFormSubmit}
+          >
+            Search
+          </FormBtn>
         </form>
         {this.state.results.length ? (
           <List>
             {this.state.results.map(book => (
               <ListItem>
-                <img src={book.volumeInfo.imageLinks.thumbnail} />
+                <img
+                  src={
+                    book.volumeInfo.imageLinks
+                      ? book.volumeInfo.imageLinks.thumbnail
+                      : "https://via.placeholder.com/150"
+                  }
+                  alt="https://via.placeholder.com/150"
+                />
                 <strong>
                   {book.volumeInfo.title} by {book.volumeInfo.authors[0]}
                 </strong>

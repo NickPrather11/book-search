@@ -25,8 +25,6 @@ export default {
       return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}&key=${APIkey}`);
     } else if (author) {
       return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${author}&key=${APIkey}`);
-    } else {
-      return alert("Please enter a title and/or author");
     }
   }
 };
