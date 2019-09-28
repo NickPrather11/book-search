@@ -16,5 +16,9 @@ export default {
   // Saves a book to the database
   saveBook: function(bookData) {
     return axios.post("/api/books", bookData);
+  },
+  searchBook: function(title, author) {
+    const APIkey = "AIzaSyDrM4Q83ZO3gg_bzVjpsSHHAlbqTqRHR8Q";
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}&key=${APIkey}`);
   }
 };
