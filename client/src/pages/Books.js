@@ -21,6 +21,12 @@ class Books extends Component {
       .catch(err => console.log(err));
   };
 
+  handleDelete = id => {
+    API.deleteBook(id)
+      .then(res => this.loadBooks())
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <Container fluid>
@@ -37,7 +43,7 @@ class Books extends Component {
                       {book.title} by {book.author}
                     </strong>
                   </a>
-                  <DeleteBtn />
+                  <DeleteBtn onClick={() => this.handleDelete(book._id)} />
                 </ListItem>
               ))}
             </List>

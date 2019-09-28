@@ -19,6 +19,14 @@ export default {
   },
   searchBook: function(title, author) {
     const APIkey = "AIzaSyDrM4Q83ZO3gg_bzVjpsSHHAlbqTqRHR8Q";
-    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}&key=${APIkey}`);
+    if (title && author) {
+      return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}&key=${APIkey}`);
+    } else if (title) {
+      return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}&key=${APIkey}`);
+    } else if (author) {
+      return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${author}&key=${APIkey}`);
+    } else {
+      return alert("Please enter a title and/or author");
+    }
   }
 };

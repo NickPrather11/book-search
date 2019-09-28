@@ -29,16 +29,28 @@ class Search extends Component {
     });
   };
 
-  handleSaveBook = event => {
-    event.preventDefault();
-    API.saveBook();
+  loadBooks = () => {
+    API.getBooks()
+      .then(res => this.setState({ books: res.data }))
+      .catch(err => console.log(err));
+  };
+
+  handleSaveBook = book => {
+    API.saveBook({
+      title: book.volumeInfo.title,
+      author: book.volumeInfo.authors[0],
+      image: book.volumeInfo.imageLinks.thumbnail,
+      description: book.volumeInfo.description
+    })
+      .then(res => alert("Book saved!"))
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
       <Container>
         <Jumbotron>
-          <h1>What Books Should I Read?</h1>
+          <h1>Search for a Book</h1>
         </Jumbotron>
         <form>
           <Input name="title" placeholder="Title (required)" onChange={this.handleInputChange} />
@@ -54,7 +66,7 @@ class Search extends Component {
                   {book.volumeInfo.title} by {book.volumeInfo.authors[0]}
                 </strong>
                 <p>{book.volumeInfo.description}</p>
-                <button onClick={this.handleSaveBook}>SAVE</button>
+                <button onClick={() => this.handleSaveBook(book)}>SAVE</button>
               </ListItem>
             ))}
           </List>
