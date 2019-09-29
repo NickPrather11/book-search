@@ -38,7 +38,7 @@ class Books extends Component {
               <ListItem key={book._id}>
                 <DeleteBtn onClick={() => this.handleDelete(book._id)} />
                 <img src={book.image} alt="https://via.placeholder.com/150" />
-                <a href="#">
+                <a href={book.link} target="_blank">
                   <strong>
                     {book.title} by {book.author}
                   </strong>

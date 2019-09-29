@@ -33,6 +33,7 @@ class Search extends Component {
       title: book.volumeInfo.title,
       author: book.volumeInfo.authors ? book.volumeInfo.authors[0] : "UNKNOWN AUTHOR",
       image: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/150",
+      link: book.volumeInfo.previewLink ? book.volumeInfo.previewLink : "#",
       description: book.volumeInfo.description ? book.volumeInfo.description : "No description available"
     })
       .then(res => alert("Book saved!"))
