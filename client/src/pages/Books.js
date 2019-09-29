@@ -29,27 +29,27 @@ class Books extends Component {
   render() {
     return (
       <Container fluid>
-        <Row>
-          <Jumbotron>
-            <h1>Books On My List</h1>
-          </Jumbotron>
-          {this.state.books.length ? (
-            <List>
-              {this.state.books.map(book => (
-                <ListItem key={book._id}>
-                  <a href={"/books/" + book._id}>
-                    <strong>
-                      {book.title} by {book.author}
-                    </strong>
-                  </a>
-                  <DeleteBtn onClick={() => this.handleDelete(book._id)} />
-                </ListItem>
-              ))}
-            </List>
-          ) : (
-            <h3>No Results to Display</h3>
-          )}
-        </Row>
+        <Jumbotron>
+          <h1 className="jumboTitle bg-secondary text-light">Books On My List</h1>
+        </Jumbotron>
+        {this.state.books.length ? (
+          <List>
+            {this.state.books.map(book => (
+              <ListItem key={book._id}>
+                <DeleteBtn onClick={() => this.handleDelete(book._id)} />
+                <img src={book.image} alt="https://via.placeholder.com/150" />
+                <a href="#">
+                  <strong>
+                    {book.title} by {book.author}
+                  </strong>
+                </a>
+                <p>{book.description}</p>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <h3>No Results to Display</h3>
+        )}
       </Container>
     );
   }

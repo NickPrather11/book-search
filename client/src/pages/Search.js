@@ -12,8 +12,6 @@ class Search extends Component {
     results: []
   };
 
-  componentDidMount() {}
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -33,9 +31,9 @@ class Search extends Component {
   handleSaveBook = book => {
     API.saveBook({
       title: book.volumeInfo.title,
-      author: book.volumeInfo.authors[0],
-      image: book.volumeInfo.imageLinks.thumbnail,
-      description: book.volumeInfo.description
+      author: book.volumeInfo.authors ? book.volumeInfo.authors[0] : "UNKNOWN AUTHOR",
+      image: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/150",
+      description: book.volumeInfo.description ? book.volumeInfo.description : "No description available"
     })
       .then(res => alert("Book saved!"))
       .catch(err => console.log(err));
@@ -45,7 +43,7 @@ class Search extends Component {
     return (
       <Container>
         <Jumbotron>
-          <h1>Search for a Book</h1>
+          <h1 className="jumboTitle bg-secondary text-light">Search for a Book</h1>
         </Jumbotron>
         <form>
           <Input name="title" placeholder="Title (required)" onChange={this.handleInputChange} />
@@ -70,9 +68,9 @@ class Search extends Component {
                   alt="https://via.placeholder.com/150"
                 />
                 <strong>
-                  {book.volumeInfo.title} by {book.volumeInfo.authors[0]}
+                  {book.volumeInfo.title} by {book.volumeInfo.authors ? book.volumeInfo.authors[0] : "UNKNOWN AUTHOR"}
                 </strong>
-                <p>{book.volumeInfo.description}</p>
+                <p>{book.volumeInfo.description ? book.volumeInfo.description : "No description available"}</p>
                 <button onClick={() => this.handleSaveBook(book)}>SAVE</button>
               </ListItem>
             ))}
